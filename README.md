@@ -1,24 +1,11 @@
-# Welcome to HashLips 👄
+# Welcome to Ugly Xmas Sweater Club
 
-![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/logo.png)
-
-All the code in these repos was created and explained by HashLips on the main YouTube channel.
+The template code used in these repos was created and explained by HashLips on their YouTube channel.
 
 To find out more please visit:
 
 [📺 YouTube](https://www.youtube.com/channel/UC1LV4_VQGBJHTJjEWUmy8nA)
 
-[👄 Discord](https://discord.com/invite/qh6MWhMJDN)
-
-[💬 Telegram](https://t.me/hashlipsnft)
-
-[🐦 Twitter](https://twitter.com/hashlipsnft)
-
-[ℹ️ Website](https://hashlips.online/HashLips)
-
-# HashLips NFT minting dapp 🔥
-
-![](https://github.com/HashLips/hashlips_nft_minting_dapp/blob/main/banner.png)
 
 This repo provides a nice and easy way for linking an existing NFT smart contract to this minting dapp. There are two ways of using this repo, you can go the simple route or the more complex one.
 
@@ -31,7 +18,7 @@ The more complex route allows you to add additional functionality if you are com
 If you are cloning the project then run this first, otherwise you can download the source code on the release page and skip this step.
 
 ```sh
-git clone https://github.com/HashLips/hashlips_nft_minting_dapp.git
+git clone https://github.com/bendgame/UxmasC.git
 ```
 
 Make sure you have node.js installed so you can use npm, then run:
@@ -52,21 +39,21 @@ Note: this dapp is designed to work with the intended NFT smart contract, that o
 
 ```json
 {
-  "CONTRACT_ADDRESS": "0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
-  "SCAN_LINK": "https://polygonscan.com/token/0x827acb09a2dc20e39c9aad7f7190d9bc53534192",
+  "CONTRACT_ADDRESS": "0x385e5a6A3631CC2c093E274b31BE3f1f572c7211",
+  "SCAN_LINK": "https://polygonscan.com/address/0x385e5a6a3631cc2c093e274b31be3f1f572c7211",
   "NETWORK": {
     "NAME": "Polygon",
     "SYMBOL": "Matic",
     "ID": 137
   },
-  "NFT_NAME": "Nerdy Coder Clones",
-  "SYMBOL": "NCC",
-  "MAX_SUPPLY": 1000,
-  "WEI_COST": 75000000000000000,
-  "DISPLAY_COST": 0.075,
-  "GAS_LIMIT": 285000,
+  "NFT_NAME": "Ugly Xmas Sweater Club",
+  "SYMBOL": "UxmasC",
+  "MAX_SUPPLY": 4000,
+  "WEI_COST": 14800000000000000000,
+  "DISPLAY_COST": 14.8,
+  "GAS_LIMIT": 300000,
   "MARKETPLACE": "Opeansea",
-  "MARKETPLACE_LINK": "https://opensea.io/collection/nerdy-coder-clones",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/ugly-xmas-sweater-club",
   "SHOW_BACKGROUND": true
 }
 ```
