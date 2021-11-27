@@ -1,0 +1,18 @@
+{
+  "CONTRACT_ADDRESS": "0x385e5a6A3631CC2c093E274b31BE3f1f572c7211",
+  "SCAN_LINK": "https://polygonscan.com/address/0x385e5a6a3631cc2c093e274b31be3f1f572c7211",
+  "NETWORK": {
+    "NAME": "Polygon",
+    "SYMBOL": "Matic",
+    "ID": 137
+  },
+  "NFT_NAME": "Ugly Xmas Sweater Club",
+  "SYMBOL": "UxmasC",
+  "MAX_SUPPLY": 4000,
+  "WEI_COST": 14800000000000000000,
+  "DISPLAY_COST": 14.8,
+  "GAS_LIMIT": 300000,
+  "MARKETPLACE": "Opeansea",
+  "MARKETPLACE_LINK": "https://opensea.io/collection/ugly-xmas-sweater-club",
+  "SHOW_BACKGROUND": true
+}
