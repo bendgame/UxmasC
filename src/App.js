@@ -6,9 +6,17 @@ import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactMarkdown from 'react-markdown';
+import Button from 'react-bootstrap/Button'
+import Offcanvas from 'react-bootstrap/Offcanvas'
+import OffcanvasHeader from 'react-bootstrap/OffcanvasHeader'
+import OffcanvasTitle from 'react-bootstrap/OffcanvasTitle'
+import OffcanvasBody from 'react-bootstrap/OffcanvasBody'
+import ListGroup from 'react-bootstrap/ListGroup'
 
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
+  
 
 export const StyledButton = styled.button`
   padding: 10px;
@@ -97,6 +105,11 @@ export const StyledLink = styled.a`
 `;
 
 function App() {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   const calculateTimeLeft = () => {
     let year = new Date().getFullYear();
     const difference = +new Date(`${year}-12-21`) - +new Date();
@@ -140,7 +153,7 @@ function App() {
   const blockchain = useSelector((state) => state.blockchain);
   const data = useSelector((state) => state.data);
   const [claimingNft, setClaimingNft] = useState(false);
-  const [feedback, setFeedback] = useState(`Click Donate to mint your NFT.`);
+  const [feedback, setFeedback] = useState(`Click Mint to mint your NFT.`);
   const [mintAmount, setMintAmount] = useState(1);
   const [CONFIG, SET_CONFIG] = useState({
     CONTRACT_ADDRESS: "",
@@ -254,7 +267,7 @@ function App() {
                 color: "var(--primary-text)",
                 fontSize:"24px"
               }}
-            >This is a charity drive for Toys for Tots in which one lucky NFT holder gets up to 15% of the pot. 
+            >A percentage of the club tokens go to Toys for Tots. In addition, a random club member will get a gift from the Club!. 
             </s.TextDescription>
             <s.TextDescription
               style={{
@@ -262,22 +275,45 @@ function App() {
                 color: "var(--primary-text)",
                 fontSize:"24px"
               }}
-            >Make a donation. Join the club!  
+            >Mint an NFT. Join the club!  
             {/* <StyledLink target={"_blank"} href={"https://www.toysfortots.org"}>
                 {truncate(" Read the Fine Print", 25)}
             </StyledLink> */}
             </s.TextDescription>
-            <s.TextDescription
-              style={{
-                textAlign: "center",
-                color: "var(--primary-text)",
-                fontSize:"36px"
-              }}
-            ><StyledLink target={"_blank"} href={"https://erickleppen.medium.com/the-ugly-xmas-sweater-club-nfts-8fa78cd3f04"}>
-                {truncate(" Read the Fine Print", 25)}
-            </StyledLink>
-            </s.TextDescription>
+            
+      <Button variant="primary" onClick={handleShow}>
+        Fine Print
+      </Button>
+
+      <Offcanvas show={show} onHide={handleClose}>
+        <Offcanvas.Header closeButton>
+          <Offcanvas.Title>Ugly Xmas Sweater Club Gift</Offcanvas.Title>
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+        <p>  After 100 Ugly Xmas Sweater Club NFTs have been minted, the club becomes eligible for a Christmas gift.     
+          </p>
+          <br></br>
+          <p>
+           One random club member will receive a gift between 3% and 15% of the accumulated tokens at the time of donation distribution. The amout being gifted depends on the number of NFTs minted. 
+           The donation and gift tiers are described in a table on the main page. 
+        The value of the accumulated tokens (MATIC, ETH, WETH) can fluctuate, so no exact value can be placed on the 
+        gift at this time. The gift will be paid out in a token of which is to be determined, but 
+        could be a combination of MATIC, WETH (wrapped eth on polygon) or ETH since those are the 
+        tokens accepted in exchange for UxmasC NFTs.</p>
+        <br></br>
+        <p>
+        The club member receiving the gift will be selected at random. A “club member” is any wallet that holds at least one UxmasC token.
+            A random number generator will be used to select one of the minted Ugly Xmas Sweater Club NFTs’ number. For example, if 323 is selected, Ugly Xmas Sweater Club #323 NFTs’ holder will receive the gift.
+            The gift will be given after the donation has been distributed,  and once  authorization has been given by the club accounting and administration or club creator. This event will be live streamed. More details to come.
+            
+        </p>
+
+        </Offcanvas.Body>
+
+
+      </Offcanvas>
           </s.Container>
+        
         <ResponsiveWrapper flex={1} style={{ padding: 24 }} test>
           <s.Container flex={1} jc={"center"} ai={"center"}>
             <StyledImg alt={"example"} src={"/config/images/example.gif"} />
@@ -343,7 +379,7 @@ function App() {
                 <s.TextTitle
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
                 >
-                  The sale has ended.
+                  Minting has ended.
                 </s.TextTitle>
                 <s.TextDescription
                   style={{ textAlign: "center", color: "var(--accent-text)" }}
@@ -502,14 +538,14 @@ function App() {
         </s.Container>
       </s.Container>
       <s.Container jc={"center"} ai={"center"} style={{ width: "100%", align:"center"}}>
-      <Table striped bordered hover center variant="dark" style={{align:"center"}}>
+      <Table striped bordered hover center variant="dark" >
         <thead>
           <tr>
             <th>Minted</th>
             <th>Donation Tier</th>
             <th>Prize Tier</th>
-            <th>Est Min Donation</th>
-            <th>Est Max Donation</th>
+            <th>Est Token Donation (MATIC)</th>
+            <th>Est Token Donation (MATIC)</th>
             <th>Club %</th>
           </tr>
         </thead>
@@ -518,60 +554,360 @@ function App() {
             <td>1-99</td>
             <td>55.0 %</td>
             <td>-</td>
-            <td>$13.75</td>
-            <td>$1362.0</td>
+            <td>8.55</td>
+            <td>1362.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>100-499</td>
             <td>52.0 %</td>
             <td>3.0 %</td>
-            <td>$1300.0</td>
-            <td>$6487.0</td>
+            <td>769.0</td>
+            <td>3840.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>500-999</td>
             <td>50.0 %</td>
             <td>5.0 %</td>
-            <td>$6250.0</td>
-            <td>$12487.5</td>
+            <td>3700.0</td>
+            <td>7392.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>1000-1999</td>
             <td>48.0 %</td>
             <td>7.0 %</td>
-            <td>$12000.0</td>
-            <td>$23988.0</td>
+            <td>7104.0</td>
+            <td>14200.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>2000-2999</td>
             <td>46.0 %</td>
             <td>9.0 %</td>
-            <td>$23000.0</td>
-            <td>$34488.5</td>
+            <td>13616.0</td>
+            <td>20417.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>3000-3999</td>
             <td>44.0 %</td>
             <td>11.0 %</td>
-            <td>$33000.0</td>
-            <td>$43989.0</td>
+            <td>19536.0</td>
+            <td>26041.0</td>
             <td>45.0 %</td>
           </tr>
           <tr>
             <td>Sold Out</td>
             <td>40.0 %</td>
             <td>15.0 %</td>
-            <td>$40000.0</td>
-            <td>$40000.0</td>
+            <td>23680.0</td>
+            <td>23680.0</td>
             <td>45.0 %</td>
           </tr>
         </tbody>
       </Table>
+      </s.Container>
+      <s.SpacerLarge />
+  <s.Container
+          flex={2}
+          jc={"center"}
+          ai={"center"}
+          style={{
+            backgroundColor: "var(--accent)",
+            
+            padding: 24,
+            borderRadius: 24,
+            border: "4px dashed var(--secondary)",
+            boxShadow: "0px 5px 11px 2px rgba(0,0,0,0.7)",
+          }}>
+          <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> Toys for Tots
+          </s.TextTitle>
+          <s.TextDescription
+            style={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   Every year around Christmas, I make a donation to Toys for Tots. Some of my fondest childhood memories are opening toys on Christmas. 
+              My family had a tradition where we’d open most our gifts Christmas Eve, and save one really special one for the morning. Now that I’m an adult, 
+              I want to make sure as many kids as possible can get that experience of opening toys on Christmas.
+
+            </s.TextDescription>
+
+            <s.TextDescription
+            style={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >  I am in no way affiliated with Toys for Tots. I am simply passionate about providing Christmas gifts. You can Donate to them directly if  <StyledLink target={"_blank"} href={"https://www.toysfortots.org"}>
+                {truncate("interested. ", 25)}
+            </StyledLink>
+              
+              View the certified contract on PolyScan <StyledLink target={"_blank"} href={"https://polygonscan.com/address/0x385e5a6a3631cc2c093e274b31be3f1f572c7211"}>
+                {truncate("PolyScan", 25)}
+            </StyledLink>
+
+          </s.TextDescription>
+          <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> This year I’m doing something new:
+          </s.TextTitle>
+          <s.TextDescription
+            style={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          > I‘ve started the Ugly Xmas Sweater Club. We will give 55-40% of our club funds to Toys for Tots once the NFT minting has closed.
+          </s.TextDescription>
+          <s.SpacerSmall/>
+          <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> Ugly Xmas Sweater Club Philanthropy
+          </s.TextTitle>
+          <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          > In addition to my regular annual donation, I’ve designed a unique collection of Non-fungible Tokens (NFTs) to look like ugly Christmas sweaters to. 
+          To receive A portion (55% – 40%) of every NFT Mint will go towards Toys for Tots.
+          Minting is done via the Polygon blockchain and costs 14.8 MATIC (roughly $25 at the time the article was written) Since the NFTs are minted on Polygon, 
+          gas fees are tiny. To connect to the Polygon mainnet, add the network: 
+          <StyledLink target={"_blank"} href={"https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/"}>
+                {truncate(" Config Metamask ", 25)}
+            </StyledLink>
+          
+        </s.TextDescription>  
+        <s.SpacerSmall/>
+        <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          > A minimum of 100 must be minted before any prize can be given to a club member. The Toys for Tots donation is determined by the number minted and owned. The ultimate goal is to mint 4000 NFTs and donate $40,000 to Toys for Tots. 
+          Then donate 15% of the club funds to a random club member.  Refer to the table for the specific tiers.
+          </s.TextDescription>
+          <s.SpacerSmall/>
+          <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> What is the Ugly Xmas Sweater Club?
+          </s.TextTitle>
+          <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          > The Ugly Xmas Sweater Club is a collection of 4000 unique NFTs with varying degrees of rarity. Any wallet holding at least one Ugly Xmas Sweat Club (UxmasC) token, is considered in “the club.” Club members can win the prize. Club members can vote on the use of club resources after accounting and administration fees have been deducted.
+          The club gains 45% of the tokens accumulated from the minting of the Ugly Sweaters. This amount is first used for accounting and administration. Actions that fall under accounting and administration include, but are not limited to these:
+          </s.TextDescription>
+          <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >    + Gas fees and Transaction fees    
+          </s.TextDescription>
+          <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >    + Taxes and Accounting   
+           </s.TextDescription>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   + Hosting and Development costs   
+           </s.TextDescription>
+           <s.SpacerSmall/>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >     Once accounting and administration has been deducted, 
+          the remaining pool of tokens is controlled by the club. What happens to it will be 
+          voted on based on prompts by me, the club creator. Suggestions might include ideas like these:
+  
+           </s.TextDescription>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >    +  Distribute or more gifts
+           </s.TextDescription>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >    +  Develop more utility or a new project
+           </s.TextDescription>
+           <s.SpacerSmall/>
+           <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> Ugly Xmas Sweater Club Gift
+          </s.TextTitle>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   One random club member will receive a gift between 3% and 15% of the accumulated tokens at the time of donation distribution. The value of the accumulated tokens (MATIC, ETH, WETH) can fluctuate, so no exact value can be placed on the gift at this time. The gift will be paid out in a token of which is to be determined, but could be a combination of MATIC, WETH (wrapped eth on polygon) or ETH since those are the tokens accepted in exchange for UxmasC NFTs.
+          The club member receiving the gift will be selected at random. A “club member” is any wallet that holds at least one UxmasC token.
+           </s.TextDescription>
+           <s.SpacerSmall/>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+            > A random number generator will be used to select one of the minted Ugly Xmas Sweater Club NFTs’ number. For example, if 323 is selected, Ugly Xmas Sweater Club #323 NFTs’ holder will receive the gift.
+              The gift will be given after the donation has been distributed,  and once  authorization has been given by the club accounting and administration or club creator.
+           </s.TextDescription>
+           <s.SpacerSmall/>
+
+           <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> Ugly Xmas Sweater Club NFTs
+          </s.TextTitle>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   
+          A maximum of 4000 NFTs can be minted. Each NFT is unique and created by combining up to 8 of 13 layers. 
+          Rarity has no impact on a club member's chance of recieving a gift.
+          Each layer is assigned a rarity, and an NFT is not guaranteed to contain any specific layer. 
+          NFTs with less than 8 layers can be extremely rare.
+          The basic layers are as follows:
+          <s.Container jc={"center"} ai={"center"} style={{ width: "100%", align:"center"}}>
+          
+          <ListGroup>
+              <ListGroup.Item>Backgrounds</ListGroup.Item>
+              <ListGroup.Item>Sweater Shirt</ListGroup.Item>
+              <ListGroup.Item>Patterns</ListGroup.Item>
+              <ListGroup.Item>Bottom</ListGroup.Item>
+              <ListGroup.Item>Collars</ListGroup.Item>
+              <ListGroup.Item>Sweater Bottoms</ListGroup.Item>
+              <ListGroup.Item>Top</ListGroup.Item>
+              <ListGroup.Item>WristCuffs</ListGroup.Item>
+          </ListGroup>
+          </s.Container>
+        The rarity for NFTs with fewer layers is as follows:
+        
+          <ListGroup>
+              <ListGroup.Item>2900/4000 have all 8 layers</ListGroup.Item>
+              <ListGroup.Item>600/4000 have no Patterns</ListGroup.Item>
+              <ListGroup.Item>400/4000 have no bottom</ListGroup.Item>
+              <ListGroup.Item>90/4000 have no top</ListGroup.Item>
+              <ListGroup.Item>9/4000 have no pattern or bottom</ListGroup.Item>
+              <ListGroup.Item>1/4000 has no bottom or top</ListGroup.Item>
+          </ListGroup>
+          </s.TextDescription>
+          <s.SpacerSmall/>
+           <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:28,
+              width: "70%"
+            }}> Balanced Layer Sets
+          </s.TextTitle>
+           <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   All layers are assigned a rarity; however, certain layer sets are rebalanced for creating the 
+          smaller NFT groups. For example, the 1/4000 NFT group uses layer sets with a balanced rarity to 
+          prevent the most common layers from having the highest chance of being selected.
+          All layers in the balanced layer sets have an equal rarity making their composition truly random.           
+          
+        
+          </s.TextDescription>
+          <s.SpacerSmall/>
+          <s.TextDescription
+            style={{
+             // textAlign: "center",
+              color: "var(--primary-text)",
+              size:26,
+              width: "70%"
+            }}
+          >   Additionally, some layers have been removed from the balanced layer sets. 
+          In some cases, the most common and most rare layers in the non-balanced sets have been 
+          removed from the balanced sets. For example, the yellow collar has been removed from the 
+          balanced collar layer set since it is the rarest collar.   
+          </s.TextDescription>
+          <s.TextTitle style ={{
+              //textAlign: "center",
+              color: "var(--primary-text)",
+              size:30,
+              width: "70%"
+            }}> The NFTs were created using the HashLips Art Engine. <StyledLink target={"_blank"} href={"https://www.youtube.com/watch?v=fzH7Gjadmj0&t=7501s"}>
+            {truncate(" YouTube ", 25)}
+        </StyledLink>
+          </s.TextTitle>
+          
+        <s.SpacerSmall/>
+
+
       </s.Container>
     </s.Screen>
   );
