@@ -6,7 +6,6 @@ import * as s from "./styles/globalStyles";
 import styled from "styled-components";
 import Table from 'react-bootstrap/Table'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ReactMarkdown from 'react-markdown';
 import Button from 'react-bootstrap/Button'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import OffcanvasHeader from 'react-bootstrap/OffcanvasHeader'
