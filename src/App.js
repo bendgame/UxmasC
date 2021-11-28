@@ -14,6 +14,8 @@ import OffcanvasTitle from 'react-bootstrap/OffcanvasTitle'
 import OffcanvasBody from 'react-bootstrap/OffcanvasBody'
 import ListGroup from 'react-bootstrap/ListGroup'
 
+import { useMoralis } from "react-moralis";
+
 const truncate = (input, len) =>
   input.length > len ? `${input.substring(0, len)}...` : input;
   
@@ -105,6 +107,7 @@ export const StyledLink = styled.a`
 `;
 
 function App() {
+  const { authenticate, isAuthenticated, user } = useMoralis();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -423,10 +426,12 @@ function App() {
                         e.preventDefault();
                         dispatch(connect());
                         getData();
+                        authenticate();
                       }}
                     >
-                      CONNECT
+                      CONNECT 
                     </StyledButton>
+                    
                     {blockchain.errorMsg !== "" ? (
                       <>
                         <s.SpacerSmall />
