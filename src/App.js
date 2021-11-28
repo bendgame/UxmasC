@@ -697,7 +697,7 @@ function App() {
           > In addition to my regular annual donation, I’ve designed this unique collection of Non-fungible Tokens (NFTs) to look like ugly Christmas sweaters. 
           To mint a Ugly Xmas Sweater Club NFT (UxmasC token), connect to Polygon mainnet and click the Mint button. At the end of the Mint phase, (55% – 40%) 
           of the accumulated tokens exchanged for UxmasC will go to Toys for Tots.
-          Minting is done via the Polygon blockchain and costs 14.8 MATIC (roughly $25 at the time the article was written) Since the NFTs are minted on Polygon, 
+          Minting is done via the Polygon blockchain and costs {CONFIG.DISPLAY_COST} MATIC (approximately $25) Since the NFTs are minted on Polygon, 
           gas fees are tiny. To connect to the Polygon mainnet, add the network: 
           <StyledLink target={"_blank"} href={"https://docs.polygon.technology/docs/develop/metamask/config-polygon-on-metamask/"}>
                 {truncate(" Config Metamask ", 25)}
@@ -712,8 +712,8 @@ function App() {
               size:26,
               width: "70%"
             }}
-          > A minimum of 100 must be minted before any prize can be given to a club member. The Toys for Tots donation is determined by the number minted and owned. The ultimate goal is to mint 4000 NFTs and donate $40,000 to Toys for Tots. 
-          Then donate 15% of the club funds to a random club member.  Refer to the table for the specific tiers.
+          > A minimum of 100 must be minted before any prize can be given to a club member. The Toys for Tots donation is determined by the number minted and owned. The ultimate goal is to mint 4000 NFTs and donate 40% to Toys for Tots. 
+          Then gift 15% of the club funds to a random club member.  Refer to the table for the specific tiers.
           </s.TextDescription>
           <s.SpacerSmall/>
           <s.TextTitle style ={{
